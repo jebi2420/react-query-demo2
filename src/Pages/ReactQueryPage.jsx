@@ -8,15 +8,29 @@ const ReactQueryPage = () => {
         return axios.get('http://localhost:3004/posts')
     }
 
-    const {isLoading, data} = useQuery({
+    const {isLoading, data, isError, error} = useQuery({
         queryKey:['posts'],
         queryFn: fetchPost,
+        retry: 1,
     });
     console.log("data:" , data, "isLoading?" , isLoading)
+    console.log("error:", isError, error)
 
+  // 로딩 시에
+  if(isLoading){
+    return <h1>Loading...</h1> // 로딩 스피너 보여주거나 하면 됨
+  }
+  // 에러가 났을 때
+  if(isError){
+    return <h1>{error.message}</h1>
+  }
+  // 로딩, 에러 둘다 안났을 떄 data를 보여준다
   return (
     <div>
       ReactQueryPage
+      {data.data.map((item)=>(
+        <div>{item.title}</div> // data의 data에서 title만 뽑아서 보여준다
+      ))}
     </div>
   )
 }
