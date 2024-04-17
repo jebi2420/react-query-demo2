@@ -8,11 +8,11 @@ const ReactQueryPage = () => {
         return axios.get('http://localhost:3004/posts')
     }
 
-    const {data} = useQuery({
+    const {isLoading, data} = useQuery({
         queryKey:['posts'],
         queryFn: fetchPost,
     });
-    console.log("data:" , data)
+    console.log("data:" , data, "isLoading?" , isLoading)
 
   return (
     <div>
