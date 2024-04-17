@@ -1,9 +1,22 @@
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import React from 'react'
 
 const ReactQueryPage = () => {
+    
+    const fetchPost = () => {
+        return axios.get('http://localhost:3004/posts')
+    }
+
+    const {data} = useQuery({
+        queryKey:['posts'],
+        queryFn: fetchPost,
+    });
+    console.log("data:" , data)
+
   return (
     <div>
-      
+      ReactQueryPage
     </div>
   )
 }
