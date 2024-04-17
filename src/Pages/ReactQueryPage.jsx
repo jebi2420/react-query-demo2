@@ -14,7 +14,8 @@ const ReactQueryPage = () => {
         retry: 1,
         select: (data)=>{
             return data.data // data.data만 뽑아서 보여주세요
-        }
+        },
+        gcTime: 5000, // 5초, 기본값은 5분
     });
     console.log("data:" , data, "isLoading?" , isLoading)
     console.log("error:", isError, error)
