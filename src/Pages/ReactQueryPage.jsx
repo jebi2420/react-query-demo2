@@ -4,12 +4,13 @@ import React from 'react'
 
 const ReactQueryPage = () => {
     
-    const fetchPost = () => {
-        return axios.get('http://localhost:3004/posts')
+    const fetchPost = (queryData) => {
+        const id = queryData.queryKey[1]
+        return axios.get(`http://localhost:3004/posts/${id}`)
     }
 
     const {isLoading, data, isError, error, refetch} = useQuery({
-        queryKey:['posts'],
+        queryKey:['posts', 1],
         queryFn: fetchPost,
         retry: 1,
         select: (data)=>{
@@ -32,9 +33,9 @@ const ReactQueryPage = () => {
   return (
     <div>
       ReactQueryPage
-      {data?.map((item)=>(
+      {/* {data?.map((item)=>(
         <div>{item.title}</div> // data의 data에서 title만 뽑아서 보여준다
-      ))}
+      ))} */}
       <button onClick={refetch}>post리스트 다시 들고오기</button>
     </div>
   )
