@@ -8,14 +8,14 @@ const ReactQueryPage = () => {
         return axios.get('http://localhost:3004/posts')
     }
 
-    const {isLoading, data, isError, error} = useQuery({
+    const {isLoading, data, isError, error, refetch} = useQuery({
         queryKey:['posts'],
         queryFn: fetchPost,
         retry: 1,
         select: (data)=>{
             return data.data // data.data만 뽑아서 보여주세요
         },
-        gcTime: 5000, // 5초, 기본값은 5분
+        enabled: false, // 처음에 데이터 안불러옴 (true가 기본값)
     });
     console.log("data:" , data, "isLoading?" , isLoading)
     console.log("error:", isError, error)
@@ -32,9 +32,10 @@ const ReactQueryPage = () => {
   return (
     <div>
       ReactQueryPage
-      {data.map((item)=>(
+      {data?.map((item)=>(
         <div>{item.title}</div> // data의 data에서 title만 뽑아서 보여준다
       ))}
+      <button onClick={refetch}>post리스트 다시 들고오기</button>
     </div>
   )
 }
