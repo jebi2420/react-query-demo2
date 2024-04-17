@@ -1,5 +1,7 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom"
+import HomePage from './Pages/HomePage';
+import ReactQueryPage from './Pages/ReactQueryPage';
 
 function App() {
   return (
