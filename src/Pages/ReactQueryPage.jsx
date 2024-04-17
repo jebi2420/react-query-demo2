@@ -12,6 +12,9 @@ const ReactQueryPage = () => {
         queryKey:['posts'],
         queryFn: fetchPost,
         retry: 1,
+        select: (data)=>{
+            return data.data // data.data만 뽑아서 보여주세요
+        }
     });
     console.log("data:" , data, "isLoading?" , isLoading)
     console.log("error:", isError, error)
@@ -28,7 +31,7 @@ const ReactQueryPage = () => {
   return (
     <div>
       ReactQueryPage
-      {data.data.map((item)=>(
+      {data.map((item)=>(
         <div>{item.title}</div> // data의 data에서 title만 뽑아서 보여준다
       ))}
     </div>
