@@ -1,9 +1,31 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQueries, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React from 'react'
 import { usePostQuery } from '../hooks/usePosts'
 
 const ReactQueryPage = () => {
+
+    const ids = [1,2,3,4] // id가 여러개인 경우
+
+    const fetchPostDetail = (id) => {
+      return axios.get(`http://localhost:3004/posts/${id}`)
+    }
+
+    const results = useQueries({
+      queries:ids.map((id)=>{
+        return {
+          queryKey:["posts", id],
+          queryFn: ()=> fetchPostDetail(id)
+        }
+      }),
+      combine: (results)=> {
+        return {
+          data: results.map((result) => result.data.data) // data안에 내가 넣고 싶은 정보만 넣어줌
+        }
+      }
+    })
+
+    console.log("results:" + results)
     
     const {data, isLoading, isError, error, refetch} =  usePostQuery()
  
